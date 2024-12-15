@@ -30,3 +30,16 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+[type="checkbox"].toggle-theToggle {
+  --handleoffset: 8rem;
+  height: 8rem;
+  width: 16rem;
+  margin-top: 2rem;
+}
+
+.main-title {
+  margin-top: 4rem;
+}
+
+.taskForm { width: 600px; }
