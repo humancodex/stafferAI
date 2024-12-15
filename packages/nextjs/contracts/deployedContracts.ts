@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     BuyMeACoffee: {
-      address: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+      address: "0xDc64a140Aa3E981100a9becA4E685f962f0cF6C9",
       abi: [
         {
           inputs: [],
@@ -285,17 +285,11 @@ const deployedContracts = {
       ],
       inheritedFunctions: {},
     },
-    YourContract: {
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
+    TaskContract: {
+      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
       abi: [
         {
-          inputs: [
-            {
-              internalType: "address",
-              name: "_owner",
-              type: "address",
-            },
-          ],
+          inputs: [],
           stateMutability: "nonpayable",
           type: "constructor",
         },
@@ -303,127 +297,602 @@ const deployedContracts = {
           anonymous: false,
           inputs: [
             {
-              indexed: true,
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
               internalType: "address",
-              name: "greetingSetter",
+              name: "aiAgent",
               type: "address",
             },
             {
               indexed: false,
-              internalType: "string",
-              name: "newGreeting",
-              type: "string",
-            },
-            {
-              indexed: false,
-              internalType: "bool",
-              name: "premium",
-              type: "bool",
-            },
-            {
-              indexed: false,
-              internalType: "uint256",
-              name: "value",
-              type: "uint256",
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
             },
           ],
-          name: "GreetingChange",
+          name: "PaymentReleased",
           type: "event",
         },
         {
-          inputs: [],
-          name: "greeting",
-          outputs: [
+          anonymous: false,
+          inputs: [
             {
-              internalType: "string",
-              name: "",
-              type: "string",
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
             },
           ],
-          stateMutability: "view",
-          type: "function",
+          name: "TaskApproved",
+          type: "event",
         },
         {
-          inputs: [],
-          name: "owner",
-          outputs: [
+          anonymous: false,
+          inputs: [
             {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
               internalType: "address",
-              name: "",
+              name: "client",
               type: "address",
             },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "premium",
-          outputs: [
             {
-              internalType: "bool",
-              name: "",
-              type: "bool",
+              indexed: false,
+              internalType: "address",
+              name: "aiAgent",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "payment",
+              type: "uint256",
             },
           ],
-          stateMutability: "view",
-          type: "function",
+          name: "TaskCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+          ],
+          name: "TaskInProgress",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+          ],
+          name: "TaskValidated",
+          type: "event",
         },
         {
           inputs: [
             {
-              internalType: "string",
-              name: "_newGreeting",
-              type: "string",
-            },
-          ],
-          name: "setGreeting",
-          outputs: [],
-          stateMutability: "payable",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "totalCounter",
-          outputs: [
-            {
               internalType: "uint256",
-              name: "",
+              name: "_taskId",
               type: "uint256",
             },
           ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [
-            {
-              internalType: "address",
-              name: "",
-              type: "address",
-            },
-          ],
-          name: "userGreetingCounter",
-          outputs: [
-            {
-              internalType: "uint256",
-              name: "",
-              type: "uint256",
-            },
-          ],
-          stateMutability: "view",
-          type: "function",
-        },
-        {
-          inputs: [],
-          name: "withdraw",
+          name: "approveTask",
           outputs: [],
           stateMutability: "nonpayable",
           type: "function",
         },
         {
-          stateMutability: "payable",
-          type: "receive",
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "balances",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_aiAgent",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_supervisor",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_payment",
+              type: "uint256",
+            },
+          ],
+          name: "createTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "disputeTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "refundClient",
+              type: "bool",
+            },
+          ],
+          name: "resolveDispute",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "startTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "client",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "aiAgent",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "payment",
+              type: "uint256",
+            },
+            {
+              internalType: "enum TaskContract.TaskStatus",
+              name: "status",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "isCompleted",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "usdcToken",
+          outputs: [
+            {
+              internalType: "contract IERC20",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "validateTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdrawFunds",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ],
+      inheritedFunctions: {},
+    },
+    YourContract: {
+      address: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
+      abi: [
+        {
+          inputs: [],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "aiAgent",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
+            },
+          ],
+          name: "PaymentReleased",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+          ],
+          name: "TaskApproved",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "client",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "aiAgent",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "payment",
+              type: "uint256",
+            },
+          ],
+          name: "TaskCreated",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+          ],
+          name: "TaskInProgress",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+          ],
+          name: "TaskValidated",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "approveTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "",
+              type: "address",
+            },
+          ],
+          name: "balances",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "_aiAgent",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "_supervisor",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "_payment",
+              type: "uint256",
+            },
+          ],
+          name: "createTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "disputeTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+            {
+              internalType: "bool",
+              name: "refundClient",
+              type: "bool",
+            },
+          ],
+          name: "resolveDispute",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "startTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "taskCounter",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          name: "tasks",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "taskId",
+              type: "uint256",
+            },
+            {
+              internalType: "address",
+              name: "client",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "aiAgent",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "supervisor",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "payment",
+              type: "uint256",
+            },
+            {
+              internalType: "enum YourContract.TaskStatus",
+              name: "status",
+              type: "uint8",
+            },
+            {
+              internalType: "bool",
+              name: "isCompleted",
+              type: "bool",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "usdcToken",
+          outputs: [
+            {
+              internalType: "contract IERC20",
+              name: "",
+              type: "address",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "uint256",
+              name: "_taskId",
+              type: "uint256",
+            },
+          ],
+          name: "validateTask",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "withdrawFunds",
+          outputs: [],
+          stateMutability: "nonpayable",
+          type: "function",
         },
       ],
       inheritedFunctions: {},
